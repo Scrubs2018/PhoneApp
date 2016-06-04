@@ -1,7 +1,7 @@
 'use strict';
 
 /* Controllers */
-var phonecatApp = angular.module('phonecatApp', ['ngRoute']);
+var phonecatApp = angular.module('phonecatApp', ['ngRoute', 'ngResource']);
 
 phonecatApp.config(['$routeProvider', '$locationProvider', function($routeProvide, $locationProvider){
   $routeProvide
@@ -26,6 +26,19 @@ phonecatApp.config(['$routeProvider', '$locationProvider', function($routeProvid
       });
 }]);
 
+/*Factory*/
+  phonecatApp.factory('phone',[
+    'resource', function($resource){
+      return $resource('phones/:phoneId.:format', {
+        phoneId: 'phones',
+        format: 'json',
+        apyKey: 'someKeyThis'
+      });
+    }
+  ]);
+
+/*Filter*/
+
 phonecatApp.filter('checkmark', function(){
   return function(input){
     return input ? '\u2713' : '\u2718';
@@ -33,10 +46,10 @@ phonecatApp.filter('checkmark', function(){
 });
 
 phonecatApp.controller('PhoneListCtrl',['$scope','$http', '$location', function($scope, $http, $location) {
-  console.log('$location.url() - ', $location.url());
-  console.log('$location.path() - ', $location.path());
-  console.log('$location.search() - ', $location.search());
-  console.log('$location.hash() - ', $location.hash());
+  // console.log('$location.url() - ', $location.url());
+  // console.log('$location.path() - ', $location.path());
+  // console.log('$location.search() - ', $location.search());
+  // console.log('$location.hash() - ', $location.hash());
 
   $http.get('phones/phones.json').success(function(data, status, headers, config) {
     $scope.phones = data;
