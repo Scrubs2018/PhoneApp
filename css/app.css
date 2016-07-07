@@ -106,3 +106,9 @@ h2 {
   vertical-align: top;
   width: 30%;
 }
+.nav li:hover {
+  background-color: #080808;
+}
+.navbar-brand {
+  font-weight: 600;
+}
